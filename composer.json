@@ -1,14 +1,23 @@
 {
+	"name": "dbstudios/salesforce-client",
+	"description": "A wrapper around the DeveloperForce SforceClient",
+	"authors": [
+		{
+			"name": "Tyler Lartonoix",
+			"email": "overlordcodemonkey@live.com"
+		}
+	],
+	"type": "library",
 	"require": {
 		"php": ">=5.4",
 		"developerforce/force.com-toolkit-for-php": "~27.0"
+	},
+	"suggest": {
+		"symfony/http-foundation": "If you plan on reducing Salesforce API calls by persisting session information"
 	},
 	"autoload": {
 		"psr-4": {
 			"DaybreakStudios\\": "src/DaybreakStudios"
 		}
-	},
-	"suggest": {
-		"symfony/http-foundation": "If you plan on reducing Salesforce API calls by persisting session information"
 	}
 }
