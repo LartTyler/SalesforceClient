@@ -14,6 +14,8 @@
 	use DaybreakStudios\Salesforce\Conversion\DateTimeConverter;
 	use DaybreakStudios\Salesforce\Conversion\NullConverter;
 	use DaybreakStudios\Salesforce\Conversion\StringConverter;
+	use DaybreakStudios\Salesforce\Conversion\IntegerConverter;
+	use DaybreakStudios\Salesforce\Conversion\FloatConverter;
 
 	class Client {
 		const BATCH_LIMIT = 200;
@@ -150,7 +152,7 @@
 			return $results;
 		}
 
-		private function clean($objects) {
+		public function clean($objects) {
 			if (!is_array($objects))
 				$objects = [ $objects ];
 
@@ -158,35 +160,60 @@
 				if (!isset($obj->fields))
 					continue;
 
-				foreach ($obj->fields as $field => $value)
-					if (is_object($value)) {
-						if (!($value instanceof SalesforceDateTimeWrapper))
-							throw new InvalidArgumentException($field . ' should be a scalar value, object found');
+				$fields = $obj->fields;
 
-						$obj->fields[$field] = $value->format();
-					} else if ($value === null) {
-						if (!isset($obj->fieldsToNull))
-							$obj->fieldsToNull = [];
+				if (is_object($fields))
+					$fields = get_object_vars($fields);
 
-						$obj->fieldsToNull[] = $field;
+				foreach ($fields as $k => $v) {
+					foreach ($this->converters as $converter)
+						if ($converter->handles($v)) {
+							$v = $converter->convert($v);
 
-						unset($obj->fields[$field]);
-					} else if (!is_scalar($value))
-						throw new InvalidArgumentException($field . ' should be a scalar value');
+							break;
+						}
+
+					$fields[$k] = $v;
+				}
+
+				if (is_object($obj->fields))
+					$fields = (object)$fields;
+
+				$obj->fields = $fields;
 			}
 
 			return $objects;
 		}
 
 		private function transmute(SObject $record) {
+			if (isset($record->Id))
+				$record->Id = substr($record->Id, 0, 15);
+
+			if (!isset($record->fields))
+				return $record;
+
+			$fields = $record->fields;
+
+			if (is_object($fields))
+				$fields = get_object_vars($fields);
+
+			foreach ($fields as $k => $v) {
+				if (strpos($k, 'Id') === strlen($k) - 2) {
+					$fields[$k] = substr($v, 0, 15);
+
+					continue;
+				}
+
+				foreach ($this->converters as $converter)
+					try {
+						$fields[$k] = $converter->revert($v);
+					} catch (InvalidArgumentException $e) {}
+			}
+
 			if (is_object($record->fields))
-				foreach (get_object_vars($record->fields) as $k => $v)
-					if ($v === 'true' || $v === 'false')
-						$record->fields->{$k} = !!str_replace('false', '', $v);
-					else if (($_ = DateTime::createFromFormat(self::DATE_FORMAT, $v)) !== false)
-						$record->fields->{$k} = $_;
-					else if (($_ = DateTime::createFromFormat(self::DATETIME_FORMAT, $v)) !== false)
-						$record->fields->{$k} = $_;
+				$fields = (object)$fields;
+
+			$record->fields = $fields;
 
 			return $record;
 		}
