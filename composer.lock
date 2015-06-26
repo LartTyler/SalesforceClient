@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8dc92499b77c3fab1024a23b778c5932",
+    "hash": "290da20aa31fd015707d478011b25bc4",
     "packages": [
         {
             "name": "developerforce/force.com-toolkit-for-php",
