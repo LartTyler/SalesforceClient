@@ -1,0 +1,52 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "8dc92499b77c3fab1024a23b778c5932",
+    "packages": [
+        {
+            "name": "developerforce/force.com-toolkit-for-php",
+            "version": "v27.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/developerforce/Force.com-Toolkit-for-PHP.git",
+                "reference": "14eadd0adae15216907dff5e76a922c0f8a3c9fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/developerforce/Force.com-Toolkit-for-PHP/zipball/14eadd0adae15216907dff5e76a922c0f8a3c9fa",
+                "reference": "14eadd0adae15216907dff5e76a922c0f8a3c9fa",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "soapclient"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "A wrapper for the Force.com Web Services SOAP API",
+            "time": "2015-03-23 21:27:56"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.4"
+    },
+    "platform-dev": []
+}

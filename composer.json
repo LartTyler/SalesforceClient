@@ -1,0 +1,9 @@
+{
+	"require": {
+		"php": ">=5.4",
+		"developerforce/force.com-toolkit-for-php": "~27.0"
+	},
+	"suggest": {
+		"symfony/http-foundation": "If you plan on reducing Salesforce API calls by persisting session information"
+	}
+}
