@@ -9,7 +9,7 @@
 		}
 
 		public function convert($val) {
-			return sprintf("'%s'", htmlentities($val));
+			return sprintf("'%s'", htmlentities(str_replace([ '\'' ], [ '\\\'' ], $val)));
 		}
 
 		public function revert($val) {
