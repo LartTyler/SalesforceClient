@@ -16,6 +16,7 @@
 	use DaybreakStudios\Salesforce\Conversion\StringConverter;
 	use DaybreakStudios\Salesforce\Conversion\IntegerConverter;
 	use DaybreakStudios\Salesforce\Conversion\FloatConverter;
+	use DaybreakStudios\Salesforce\Query\QueryBuilder;
 
 	class Client {
 		const BATCH_LIMIT = 200;
@@ -66,6 +67,10 @@
 				350 => new IntegerConverter(),
 				400 => new FloatConverter(),
 			];
+		}
+
+		public function createQueryBuilder() {
+			return new QueryBuilder($this);
 		}
 
 		public function getConverters() {
