@@ -23,11 +23,11 @@
 		protected static function init() {
 			parent::register('SELECT');
 			parent::register('FROM', false);
+			parent::register('WHERE');
 			parent::register('GROUPBY', true, 'GROUP BY');
 			parent::register('HAVING');
-			parent::register('LIMIT', false);
 			parent::register('ORDERBY', true, 'ORDER BY');
-			parent::register('WHERE');
+			parent::register('LIMIT', false);
 		}
 	}
 ?>
