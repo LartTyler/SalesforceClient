@@ -5,6 +5,7 @@
 
 	use DaybreakStudios\Common\Collection\EnumMap;
 
+	use DaybreakStudios\Salesforce\Client;
 	use DaybreakStudios\Salesforce\Query\Expr\AndPart;
 	use DaybreakStudios\Salesforce\Query\Expr\Expr;
 	use DaybreakStudios\Salesforce\Query\Expr\OrPart;
