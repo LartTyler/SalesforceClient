@@ -77,6 +77,10 @@
 			return $this;
 		}
 
+		public function getPart(PartType $type) {
+			return $this->parts->get($type);
+		}
+
 		public function select(/* ... $select */) {
 			$select = func_get_args();
 
@@ -128,6 +132,34 @@
 
 		public function addOrderBy($orderBy) {
 			return $this->add(PartType::ORDERBY(), $orderBy, true);
+		}
+
+		public function getMaxResults() {
+			return $this->getPart(PartType::LIMIT());
+		}
+
+		public function setMaxResults($limit) {
+			return $this->add(PartType::LIMIT(), $limit, false);
+		}
+
+		public function getFirstResult() {
+			return $this->getPart(PartType::OFFSET());
+		}
+
+		public function setFirstResult($offset) {
+			return $this->add(PartType::OFFSET(), $offset, false);
+		}
+
+		public function setParameter($key, $value) {
+			$this->query->setParameter($key, $value);
+
+			return $this;
+		}
+
+		public function setParameters(array $parameters) {
+			$this->query->setParameters($parameters);
+
+			return $this;
 		}
 
 		public function reset($type = null) {
