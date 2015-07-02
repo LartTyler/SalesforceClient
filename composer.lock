@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "dbstudios/php-commons",
-            "version": "4.2.1",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LartTyler/PHP-DaybreakCommons.git",
-                "reference": "206cdebfe0b1c907a393be13726c13a6dd22b680"
+                "reference": "09ae5c519a93222c66bd5cbd8a0445fae1f4813f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LartTyler/PHP-DaybreakCommons/zipball/206cdebfe0b1c907a393be13726c13a6dd22b680",
-                "reference": "206cdebfe0b1c907a393be13726c13a6dd22b680",
+                "url": "https://api.github.com/repos/LartTyler/PHP-DaybreakCommons/zipball/09ae5c519a93222c66bd5cbd8a0445fae1f4813f",
+                "reference": "09ae5c519a93222c66bd5cbd8a0445fae1f4813f",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,7 @@
                 }
             ],
             "description": "A collection of common PHP files that are used between many projects",
-            "time": "2015-06-30 16:10:15"
+            "time": "2015-07-02 15:43:44"
         },
         {
             "name": "developerforce/force.com-toolkit-for-php",
