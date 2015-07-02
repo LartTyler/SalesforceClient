@@ -73,22 +73,7 @@
 				else
 					$params[$k] = $v;
 
-			$result = $this->client->query($this->getSoql(), $params);
-
-			if ($result->size === 0)
-				return $result;
-
-			foreach ($result as $record)
-				if (!$record->success) {
-					$error = [];
-
-					foreach ($record->errors as $e)
-						$error[] = sprintf('[%s] %s', $e->statusCode, $e->message);
-
-					throw new QueryException(implode('; ', $error));
-				}
-
-			return $result;
+			return $this->client->query($this->getSoql(), $params);
 		}
 
 		public function getResult() {
