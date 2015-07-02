@@ -57,7 +57,7 @@
 
 		public function add(PartType $type, $part, $append = false) {
 			if ($append && !$type->isAppendSupported())
-				throw new InvalidArgumentException('PartType::' . $type->name() . ' does not support appending parts');
+				throw new InvalidArgumentException('PartType::' . $type . ' does not support appending parts');
 
 			if ($append) {
 				$parts = [];
