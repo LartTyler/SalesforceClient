@@ -1,6 +1,7 @@
 <?php
 	namespace DaybreakStudios\Salesforce\Query;
 
+	use \BadMethodCallException;
 	use \InvalidArgumentException;
 
 	use DaybreakStudios\Common\Collection\EnumMap;
@@ -23,6 +24,9 @@
 		}
 
 		public function getQuery() {
+			if (!$this->getPart(PartType::SELECT()) || !$this->getPart(PartType::FROM()) || !$this->getPart(PartType::WHERE()))
+				throw new BadMethodCallException('At miniumum, you must have a SELECT part, FROM part, and WHERE part');
+
 			$soql = '';
 
 			foreach (PartType::values() as $type) {
