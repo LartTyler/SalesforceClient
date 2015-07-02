@@ -90,5 +90,41 @@
 
 			return $result;
 		}
+
+		public function getResult() {
+			return $this->execute();
+		}
+
+		public function getSingleScalarResult() {
+			$result = $this->execute();
+
+			if ($result->size > 1)
+				throw new BadMethodCallException('Execute returned more than one row');
+
+			$record = $result[0];
+
+			if (isset($record->fields)) {
+				$fields = get_object_vars($recrd->fields);
+
+				if (sizeof($fields) > 0)
+					return current($fields);
+			}
+
+			if (isset($record->Id))
+				return $record->Id;
+
+			throw new BadMethodCallException('There was no data in the result set? O_o');
+		}
+
+		public function getOneOrNullResult() {
+			$result = $this->execute();
+
+			if ($result->size > 1)
+				throw new BadMethodCallException('Execute returned more than one row');
+			else if ($result->size === 0)
+				return null;
+
+			return $result[0];
+		}
 	}
 ?>
