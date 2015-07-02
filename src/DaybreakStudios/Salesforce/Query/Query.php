@@ -65,7 +65,15 @@
 			else if ($this->client === null)
 				throw new BadMethodCallException('Cannot execute without a client connection');
 
-			$result = $this->client->query($this->getSoql());
+			$params = [];
+
+			foreach ($this->parameters as $k => $v)
+				if (strpos($k, ':') !== 0)
+					$params[sprintf(':%s', $k)] = $v;
+				else
+					$params[$k] = $v;
+
+			$result = $this->client->query($this->getSoql(), $params);
 
 			if ($result->size === 0)
 				return $result;
