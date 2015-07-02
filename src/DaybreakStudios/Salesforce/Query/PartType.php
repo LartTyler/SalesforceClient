@@ -28,6 +28,7 @@
 			parent::register('HAVING');
 			parent::register('ORDERBY', true, 'ORDER BY');
 			parent::register('LIMIT', false);
+			parent::register('OFFSET', false);
 		}
 	}
 ?>
