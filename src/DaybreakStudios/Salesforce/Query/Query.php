@@ -84,32 +84,32 @@
 			$result = $this->execute();
 
 			if ($result->size > 1)
-				throw new BadMethodCallException('Execute returned more than one row');
+				throw new BadMethodCallException('There was more than one row in the result set');
 
-			$record = $result[0];
+			$record = $result->records[0];
 
 			if (isset($record->fields)) {
 				$fields = get_object_vars($recrd->fields);
 
-				if (sizeof($fields) > 0)
+				if (sizeof($fields) > 1)
+					throw new BadMethodCallException('There was more than one column in the result set');
+				else
 					return current($fields);
-			}
-
-			if (isset($record->Id))
+			} else if (isset($record->Id))
 				return $record->Id;
 
-			throw new BadMethodCallException('There was no data in the result set? O_o');
+			throw new BadMethodCallException('There were no columns in the result set');
 		}
 
 		public function getOneOrNullResult() {
 			$result = $this->execute();
 
 			if ($result->size > 1)
-				throw new BadMethodCallException('Execute returned more than one row');
+				throw new BadMethodCallException('There was more than one column in the result set');
 			else if ($result->size === 0)
 				return null;
 
-			return $result[0];
+			return $result->records[0];
 		}
 	}
 ?>
