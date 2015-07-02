@@ -22,7 +22,33 @@
 		}
 
 		public function getQuery() {
-			return $this->query;
+			$soql = '';
+
+			foreach (PartType::values() as $type) {
+				$parts = $this->parts->get($type);
+
+				if ($parts === null)
+					continue;
+
+				$soql .= sprintf(' %s ', $type->getSoql());
+
+				if (!is_array($parts))
+					$parts = [ $parts ];
+
+				if ($type === PartType::SELECT()) {
+					$soql .= implode(', ', $parts);
+
+					continue;
+				}
+
+				foreach ($parts as $p)
+					if ($p instanceof Part)
+						$soql .= $p->assemble();
+					else
+						$soql .= $p;
+			}
+
+			return $this->query->setSoql(trim($soql));
 		}
 
 		public function expr() {
