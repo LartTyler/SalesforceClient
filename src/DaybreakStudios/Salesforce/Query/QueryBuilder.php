@@ -46,11 +46,15 @@
 					continue;
 				}
 
+				$assembled = '';
+
 				foreach ($parts as $p)
 					if ($p instanceof Part)
-						$soql .= $p->assemble();
+						$assembled .= strlen($assembled) > 0 ? $p->assemble() : $p->getValue();
 					else
-						$soql .= $p;
+						$assembled .= $p;
+
+				$soql .= $assembled;
 			}
 
 			return $this->query->setSoql(trim($soql));
