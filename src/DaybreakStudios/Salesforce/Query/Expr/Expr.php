@@ -4,6 +4,10 @@
 	use DaybreakStudios\Salesforce\Query\QueryBuilder;
 
 	class Expr {
+		public function not($expr) {
+			return sprintf('(NOT %s)', $expr);
+		}
+
 		public function andX(/* ... $wheres */) {
 			$wheres = func_get_args();
 			$where = null;
