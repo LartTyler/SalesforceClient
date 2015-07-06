@@ -105,7 +105,7 @@
 			$result = $this->execute();
 
 			if ($result->size > 1)
-				throw new BadMethodCallException('There was more than one column in the result set');
+				throw new BadMethodCallException('There was more than one row in the result set');
 			else if ($result->size === 0)
 				return null;
 
