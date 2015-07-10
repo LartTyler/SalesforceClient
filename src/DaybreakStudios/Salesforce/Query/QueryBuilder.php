@@ -17,7 +17,7 @@
 		private $parts;
 		private $expr;
 
-		public function __construct(Client $client) {
+		public function __construct(Client $client = null) {
 			$this->query = new Query($client);
 			$this->parts = new EnumMap('DaybreakStudios\\Salesforce\\Query\\PartType');
 			$this->expr = new Expr();
