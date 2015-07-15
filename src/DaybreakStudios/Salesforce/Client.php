@@ -172,7 +172,7 @@
 
 				foreach ($fields as $k => $v) {
 					foreach ($this->converters as $converter)
-						if ($converter->handles($v)) {
+						if (!($converter instanceof StringConverter) && $converter->handles($v)) {
 							$v = $converter->convert($v);
 
 							break;
