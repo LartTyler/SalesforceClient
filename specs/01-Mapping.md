@@ -3,8 +3,10 @@
 - [Entity Manager](#entity-manager)
 - [Field Types](#field-types)
 	- [Boolean](#boolean-field-type)
+	- [Date](#date-field-type)
 	- [DateTime](#datetime-field-type)
 	- [ID](#id-field-type)
+	- [Integer](#integer-field-type)
 	- [Phone](#phone-field-type)
 	- [Reference](#reference-field-type)
 	- [String](#string-field-type)
@@ -41,6 +43,10 @@ PHP function) before becoming accessible to your application.
 ## ID Field Type
 ID fields are the primary key for the object, and are always constrained to a string of 15 characters.
 
+## Integer Field Type
+An integer field is a non-decimal number. Integer fields can optionally include the `unsigned` option, which is a
+boolean option that determines if the field should include a sign or not.
+
 ## Phone Field Type
 Phone fields store phone numbers (duh). The value passed to a phone field may be any string, and is not required to pass
 any kind of validation, but the following transformation will occur when sending the value to Salesforce.
@@ -61,6 +67,8 @@ being consumed by the implementing application.
 
 ## Reference Field Type
 A cross-reference to another remote object. Reference fields follow similar conventions to [ID fields](#id-field-type).
+
+Rerference is not a valid type for entity fields, and should not be used.
 
 ## String Field Type
 A string field is simply a series of characters that have a maximum length placed upon them. All string field defintions
