@@ -90,8 +90,30 @@ More information on the default system fields
 DaybreakStudios\Salesforce\Samples\Lead:
 	remote: Lead
 	fields:
-		FirstName:
+		fname:
+			remote: FirstName
 			type: string
-			length: 128
-			nullable: false
+			length: 40
+		lname:
+			remote: LastName
+			type: string
+			length: 80
+			required: true
+		converted:
+			remote: IsConverted
+			type: boolean
+			writeable: false
+		phone:
+			type: phone
+	manyToOne:
+		owner:
+			target: User
+		type:
+			remote: RecordTypeId
+			target: RecordType
+	oneToOne:
+		convertedAccount:
+			target: Account
+		convertedContact:
+			target: Contact
 ```
