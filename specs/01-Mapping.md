@@ -1,5 +1,6 @@
 # Table of Contents
 - [Foreword](#foreword)
+- [Entity Manager](#entity-manager)
 - [Field Types](#field-types)
 	- [Boolean](#boolean-field-type)
 	- [DateTime](#datetime-field-type)
@@ -19,6 +20,11 @@ will be able to understand and implement.
 Most of the Mapping suite takes it's inspiration from the [Doctrine Project](http://www.doctrine-project.org/), and
 intentionally aims to keep it's specification as similar as possible so that those familar with the semantics of the
 Doctrine Project can more easily work with the Mapping suite.
+
+# Entity Manager
+The Mapping suite's entity manager is responsible for keeping track of the entities used by the suite, as well as their
+configurations. It offers methods for loading configurations from files in various formats (such as YAML), and is the
+"conduit" for communications with Salesforce.
 
 # Field Types
 
