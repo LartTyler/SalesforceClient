@@ -4,7 +4,9 @@
 	- [Boolean](#boolean-field-type)
 	- [DateTime](#datetime-field-type)
 	- [ID](#id-field-type)
+	- [Phone](#phone-field-type)
 	- [Reference](#reference-field-type)
+	- [String](#string-field-type)
 - [Local Mapping](#local-mapping)
 - [Appendix A: Samples](#appendix-a-samples)
 	- [Local Mapping Sample (YAML)](#local-mapping-sample-yaml)
@@ -33,8 +35,30 @@ PHP function) before becoming accessible to your application.
 ## ID Field Type
 ID fields are the primary key for the object, and are always constrained to a string of 15 characters.
 
+## Phone Field Type
+Phone fields store phone numbers (duh). The value passed to a phone field may be any string, and is not required to pass
+any kind of validation, but the following transformation will occur when sending the value to Salesforce.
+
+1. All characters that are not digits or the letter "x" will be stripped
+2. The number will be reformatted so that the resulting string follows the defined phone format; by default, this is:
+	1. The 10 characters before the "x" character (or end of string) are formatted `(###) ###-####`
+	2. Any characters more than 10 characters away from the "x" (or end of string) are considered the region code, and
+	are prepended like so `## (###) ###-####`
+	3. If the string contained an "x", any digits following it are considered the extension, and are appended like
+	so `(###) ###-#### x####`
+
+The region code and extension are always optional for phone fields.
+
+When receiving phone fields from Salesforce, the opposite operation is performed. Any character that is not a digit
+or the letter "x" is removed before being written to the entity. In this way, all phone numbers are normalized before
+being consumed by the implementing application.
+
 ## Reference Field Type
 A cross-reference to another remote object. Reference fields follow similar conventions to [ID fields](#id-field-type).
+
+## String Field Type
+A string field is simply a series of characters that have a maximum length placed upon them. All string field defintions
+**MUST** have a `length` definition as well.
 
 # Local Mapping
 The Local Mapping module of the Mapping suite is the abstraction layer that allows you to define how your objects in
