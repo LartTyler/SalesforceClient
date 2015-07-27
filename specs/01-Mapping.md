@@ -45,6 +45,7 @@ The default configurations can be overridden by giving the [entity manager](#ent
 that name the same remote object in their mapping.
 
 Additionally, all entities (default or otherwise) are assumed to have the following system fields:
+
 |Field Name|Type|Description|
 |----------|----|-----------|
 |Id|[ID](#id-field-type)|The globally unique string that identifies a Salesforce object|
