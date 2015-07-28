@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4a56c05147f61fe6bfadeb75034a32c9",
+    "hash": "227a2d0f41f79162929693660d73b996",
     "packages": [
         {
             "name": "dbstudios/php-commons",
