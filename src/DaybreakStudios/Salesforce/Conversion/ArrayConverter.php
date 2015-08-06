@@ -12,10 +12,13 @@
 			$str = '';
 
 			foreach ($val as $v)
-				if (is_numeric($v))
-					$str .= ',' . $v;
-				else if (is_string($v))
-					$str .= ",'" . htmlentities($v) . "'";
+				if (is_numeric($v)) {
+					if (strpos($v, '.') !== false)
+						$str .= ',' . (float)$v;
+					else
+						$str .= ',' . (int)$v;
+				} else if (is_string($v))
+					$str .= ",'" . htmlentities(str_replace([ '\'' ], [ '\\\'' ], $v)) . "'";
 
 			if (strlen($str) > 0)
 				$str = substr($str, 1);
