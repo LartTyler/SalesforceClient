@@ -55,10 +55,9 @@
 				100 => new Conversion\ArrayConverter(),
 				150 => new Conversion\BooleanConverter(),
 				200 => new Conversion\DateTimeConverter(),
-				250 => new Conversion\NullConverter(),
-				300 => new Conversion\StringConverter(),
-				350 => new Conversion\IntegerConverter(),
-				400 => new Conversion\FloatConverter(),
+				250 => new Conversion\IntegerConverter(),
+				300 => new Conversion\FloatConverter(),
+				350 => new Conversion\StringConverter(),
 			];
 		}
 
@@ -121,6 +120,9 @@
 		}
 
 		public function create($objects, AssignmentRuleHeader $aheader = null, MruHeader $mheader = null) {
+			if (!is_array($objects))
+				$objects = [ $objects ];
+
 			$results = [];
 
 			foreach (array_chunk($this->clean($objects), self::BATCH_LIMIT) as $chunk)
@@ -130,6 +132,9 @@
 		}
 
 		public function update($objects, AssignmentRuleHeader $aheader = null, MruHeader $mheader = null) {
+			if (!is_array($objects))
+				$objects = [ $objects ];
+
 			$results = [];
 
 			foreach (array_chunk($this->clean($objects), self::BATCH_LIMIT) as $chunk)
@@ -150,22 +155,28 @@
 			return $results;
 		}
 
-		public function clean($objects) {
-			if (!is_array($objects))
-				$objects = [ $objects ];
+		public function clean(array $objects) {
+			foreach ($objects as $k => $obj) {
+				$fields = $this->getSObjectFields($obj);
 
-			foreach ($objects as $obj) {
-				if (!isset($obj->fields))
+				if ($fields === null) {
+					unset($objects[$k]);
+
 					continue;
-
-				$fields = $obj->fields;
-
-				if (is_object($fields))
-					$fields = get_object_vars($fields);
+				}
 
 				foreach ($fields as $k => $v) {
+					if ($v === null) {
+						if (!isset($obj->fieldsToNull))
+							$obj->fieldsToNull = [];
+
+						$obj->fieldsToNull[] = $k;
+
+						continue;
+					}
+
 					foreach ($this->converters as $converter)
-						if (!($converter instanceof StringConverter) && $converter->handles($v)) {
+						if ($converter->handles($v)) {
 							$v = $converter->convert($v);
 
 							break;
@@ -181,6 +192,18 @@
 			}
 
 			return $objects;
+		}
+
+		private function getSObjectFields(SObject $sob) {
+			if (!isset($sob->fields))
+				return null;
+
+			$fields = $sob->fields;
+
+			if (is_object($fields))
+				$fields = get_object_vars($fields);
+
+			return $fields;
 		}
 
 		private function transmute(SObject $record) {
