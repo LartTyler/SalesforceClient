@@ -18,6 +18,7 @@
 					else
 						$str .= ',' . (int)$v;
 				} else if (is_string($v))
+					$str .= ",'" . htmlentities(str_replace([ '\'' ], [ '\\\'' ], $v)) . "'";
 
 			if (strlen($str) > 0)
 				$str = substr($str, 1);
