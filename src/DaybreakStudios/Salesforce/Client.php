@@ -15,9 +15,6 @@
 	class Client {
 		const BATCH_LIMIT = 200;
 
-		const DATE_FORMAT = 'Y-m-d';
-		const DATETIME_FORMAT = 'Y-m-d\\TH:i:s.000\\Z';
-
 		const SESSION_ENDPOINT = 'dbstudios.salesforce.client.endpoint';
 		const SESSION_ID = 'dbstudios.salesforce.client.sfid';
 
