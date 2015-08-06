@@ -12,7 +12,7 @@
 	use DaybreakStudios\Salesforce\Conversion as Conversion;
 	use DaybreakStudios\Salesforce\Query\QueryBuilder;
 
-	use Symfony\Component\HttpFoundation\Session;
+	use Symfony\Component\HttpFoundation\Session\Session;
 
 	class Client {
 		const BATCH_LIMIT = 200;
