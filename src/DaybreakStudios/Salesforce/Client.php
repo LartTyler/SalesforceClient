@@ -172,6 +172,8 @@
 
 						$obj->fieldsToNull[] = $k;
 
+						unset($fields[$k]);
+
 						continue;
 					}
 
