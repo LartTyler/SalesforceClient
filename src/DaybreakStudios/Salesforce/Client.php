@@ -9,13 +9,7 @@
 
 	use DaybreakStudios\Salesforce\DateTime\SalesforceDateTime;
 	use DaybreakStudios\Salesforce\DateTime\SalesforceDateTimeWrapper;
-	use DaybreakStudios\Salesforce\Conversion\ArrayConverter;
-	use DaybreakStudios\Salesforce\Conversion\BooleanConverter;
-	use DaybreakStudios\Salesforce\Conversion\DateTimeConverter;
-	use DaybreakStudios\Salesforce\Conversion\NullConverter;
-	use DaybreakStudios\Salesforce\Conversion\StringConverter;
-	use DaybreakStudios\Salesforce\Conversion\IntegerConverter;
-	use DaybreakStudios\Salesforce\Conversion\FloatConverter;
+	use DaybreakStudios\Salesforce\Conversion as Conversion;
 	use DaybreakStudios\Salesforce\Query\QueryBuilder;
 
 	class Client {
@@ -59,13 +53,13 @@
 			}
 
 			$this->converters = [
-				100 => new ArrayConverter(),
-				150 => new BooleanConverter(),
-				200 => new DateTimeConverter(),
-				250 => new NullConverter(),
-				300 => new StringConverter(),
-				350 => new IntegerConverter(),
-				400 => new FloatConverter(),
+				100 => new Conversion\ArrayConverter(),
+				150 => new Conversion\BooleanConverter(),
+				200 => new Conversion\DateTimeConverter(),
+				250 => new Conversion\NullConverter(),
+				300 => new Conversion\StringConverter(),
+				350 => new Conversion\IntegerConverter(),
+				400 => new Conversion\FloatConverter(),
 			];
 		}
 
