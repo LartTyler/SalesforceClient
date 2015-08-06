@@ -55,10 +55,9 @@
 				100 => new Conversion\ArrayConverter(),
 				150 => new Conversion\BooleanConverter(),
 				200 => new Conversion\DateTimeConverter(),
-				250 => new Conversion\NullConverter(),
-				300 => new Conversion\StringConverter(),
-				350 => new Conversion\IntegerConverter(),
-				400 => new Conversion\FloatConverter(),
+				250 => new Conversion\IntegerConverter(),
+				300 => new Conversion\FloatConverter(),
+				350 => new Conversion\StringConverter(),
 			];
 		}
 
