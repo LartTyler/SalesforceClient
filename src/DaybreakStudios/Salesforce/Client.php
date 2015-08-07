@@ -166,7 +166,7 @@
 				}
 
 				foreach ($fields as $k => $v) {
-					if ($v === null || strlen((string)$v) === 0) {
+					if ($v === null || is_string($v) && strlen($v) === 0) {
 						if (!isset($obj->fieldsToNull))
 							$obj->fieldsToNull = [];
 
