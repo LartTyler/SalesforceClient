@@ -177,23 +177,26 @@
 						continue;
 					}
 
-					foreach ($this->converters as $converter)
-						if ($converter->handles($v)) {
-							$v = $converter->convert($v);
-
-							break;
-						}
-
-					$fields[$k] = $v;
+					$fields[$k] = $this->convertForUpdateOrCreate($v);
 				}
 
-				if (is_object($obj->fields))
-					$fields = (object)$fields;
-
-				$obj->fields = $fields;
+				$obj = $this->updateSObjectFields($obj, $fields);
 			}
 
 			return $objects;
+		}
+
+		private function convertForUpdateOrCreate($value) {
+			foreach ($this->converters as $converter)
+				if ($converter instanceof Conversion\StringConverter)
+					continue;
+				else if ($converter->handles($value)) {
+					$value = $converter->convert($value);
+
+					break;
+				}
+
+			return $value;
 		}
 
 		private function getSObjectFields(SObject $sob) {
@@ -206,6 +209,18 @@
 				$fields = get_object_vars($fields);
 
 			return $fields;
+		}
+
+		private function updateSObjectFields(SObject $sob, $fields) {
+			if (!is_array($fields) && !is_object($fields))
+				throw new InvalidArgumentException('$fields must be an array or object');
+
+			if (is_object($sob->fields))
+				$fields = (object)$fields;
+
+			$sob->fields = $fields;
+
+			return $sob;
 		}
 
 		private function transmute(SObject $record) {
