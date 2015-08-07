@@ -188,7 +188,9 @@
 
 		private function convertForUpdateOrCreate($value) {
 			foreach ($this->converters as $converter)
-				if ($converter->handles($value)) {
+				if ($converter instanceof Conversion\StringConverter)
+					continue;
+				else if ($converter->handles($value)) {
 					$value = $converter->convert($value);
 
 					break;
