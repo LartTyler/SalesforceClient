@@ -177,7 +177,7 @@
 						continue;
 					}
 
-					$fields[$k] = $this->convert($v);
+					$fields[$k] = $this->convertForUpdateOrCreate($v);
 				}
 
 				$obj = $this->updateSObjectFields($obj, $fields);
@@ -186,7 +186,7 @@
 			return $objects;
 		}
 
-		private function convert($value) {
+		private function convertForUpdateOrCreate($value) {
 			foreach ($this->converters as $converter)
 				if ($converter->handles($value)) {
 					$value = $converter->convert($value);
