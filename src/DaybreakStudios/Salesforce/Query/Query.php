@@ -35,6 +35,15 @@
 			return $this;
 		}
 
+		public function getRunnableSoql() {
+			if ($this->client === null)
+				throw new BadMethodCallException('Cannot get runnable SOQL without an active connection!');
+			else if ($this->soql === null || strlen($this->soql) === 0)
+				throw new BadMethodCallException('Cannot get runnable SOQL without a query first being set.');
+
+			return $this->client->processParameters($this->soql, $this->parameters);
+		}
+
 		public function getParameter($key) {
 			if (isset($this->parameters[$key]))
 				return $this->parameters[$key];
